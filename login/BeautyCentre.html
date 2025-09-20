@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Beauty Room</title>
+  <link rel="stylesheet" href="style_main.css">
+
+</head>
+<body>
+
+<!-- Topbar -->
+<div class="topbar">
+  <div class="left">
+    <button class="toggle-btn" id="toggleBtn"></button>
+    <div class="logo">Beauty Room</div>
+  </div>
+  <div class="center">
+    <input type="text" id="searchInput" placeholder="Пошук...">
+  </div>
+  <div class="right">
+    <button id="sortBtn">⇅ Сортувати</button>
+    <button id="themeBtn">Зміна теми</button>
+  </div>
+</div>
+
+<!-- Контент -->
+<div class="container">
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <button>➕ Додати запис</button>
+    <ul>
+      <li><a href="#" id="allTab">📥 Записи</a></li>
+      <li><a href="#" id="doneTab">⭐ Виконані</a></li>
+      <li><a href="#">⏰ Запити на записи</a></li>
+    </ul>
+  </div>
+
+  <!-- Основний блок -->
+  <div class="main" id="mainContent">
+    <div class="email" data-id="1" data-from="Beauti Center" data-subject="Запис" data-body="Ваш запис підтверджено на 15 вересня." data-date="2025-09-15">
+      <div class="left-part">
+        <span class="from">Beauty Room</span>
+        <span class="subject">Запис</span>
+      </div>
+      <div>
+        <span class="date">15 вер.</span>
+        <span class="star">☆</span>
+      </div>
+    </div>
+
+    <div class="email" data-id="2" data-from="Temu" data-subject="0,01$ ПРОПОЗИЦІЯ" data-body="Вам пропонується бонус як подяка 💕" data-date="2025-09-15">
+      <div class="left-part">
+        <span class="from">Temu</span>
+        <span class="subject">0,01$ ПРОПОЗИЦІЯ як подяка 💕</span>
+      </div>
+      <div>
+        <span class="date">15 вер.</span>
+        <span class="star">☆</span>
+      </div>
+    </div>
+
+    <div class="email" data-id="3" data-from="Beauti Center" data-subject="Запис" data-body="Ваш запис підтверджено на 14 вересня." data-date="2025-09-14">
+      <div class="left-part">
+        <span class="from">Beauti Center</span>
+        <span class="subject">Запис</span>
+      </div>
+      <div>
+        <span class="date">14 вер.</span>
+        <span class="star">☆</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const sidebar = document.getElementById('sidebar');
+  const toggleBtn = document.getElementById('toggleBtn');
+  const themeBtn = document.getElementById('themeBtn');
+  const sortBtn = document.getElementById('sortBtn');
+  const allTab = document.getElementById('allTab');
+  const doneTab = document.getElementById('doneTab');
+  const mainContent = document.getElementById('mainContent');
+  const searchInput = document.getElementById('searchInput');
+
+  let sortAsc = true;
+
+  // Меню
+  toggleBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+  });
+
+  // Тема
+  themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+  });
+
+  // Зірочки
+  function initStars() {
+    document.querySelectorAll('.star').forEach(star => {
+      const parent = star.closest('.email');
+      const id = parent.dataset.id;
+
+      if(localStorage.getItem('star-' + id) === 'true') {
+        star.classList.add('active');
+        star.textContent = '★';
+      }
+
+      star.onclick = () => {
+        star.classList.toggle('active');
+        if(star.classList.contains('active')) {
+          star.textContent = '★';
+          localStorage.setItem('star-' + id, 'true');
+        } else {
+          star.textContent = '☆';
+          localStorage.removeItem('star-' + id);
+        }
+      };
+    });
+  }
+  initStars();
+
+  // Фільтр "Всі" / "Виконані"
+  allTab.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelectorAll('.email').forEach(email => {
+      email.style.display = '';
+    });
+  });
+
+  doneTab.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelectorAll('.email').forEach(email => {
+      const id = email.dataset.id;
+      if(localStorage.getItem('star-' + id) === 'true') {
+        email.style.display = '';
+      } else {
+        email.style.display = 'none';
+      }
+    });
+  });
+
+  // Сортування
+  sortBtn.addEventListener('click', () => {
+    const emails = Array.from(document.querySelectorAll('.email'));
+    emails.sort((a, b) => {
+      return sortAsc
+        ? new Date(a.dataset.date) - new Date(b.dataset.date)
+        : new Date(b.dataset.date) - new Date(a.dataset.date);
+    });
+    sortAsc = !sortAsc;
+    emails.forEach(e => mainContent.appendChild(e));
+  });
+
+  // Пошук
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.toLowerCase();
+    document.querySelectorAll('.email').forEach(email => {
+      const text = (email.dataset.from + email.dataset.subject + email.dataset.body).toLowerCase();
+      email.style.display = text.includes(q) ? '' : 'none';
+    });
+  });
+</script>
+
+</body>
+</html>
