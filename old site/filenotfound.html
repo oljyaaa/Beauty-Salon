@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сторінку не знайдено</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #fceff9, #e0f7fa);
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    h1 {
+      font-size: 10rem;
+      color: #ff8a80;
+      margin-bottom: 10px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    a {
+      display: inline-block;
+      padding: 12px 30px;
+      background: #80deea;
+      color: #fff;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    a:hover {
+      background: #4dd0e1;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: move 12s linear infinite;
+    }
+
+    .circle.small {
+      width: 80px;
+      height: 80px;
+      background: #ffe0f7;
+      top: 10%;
+      left: 15%;
+    }
+
+    .circle.medium {
+      width: 150px;
+      height: 150px;
+      background: #c8e6c9;
+      bottom: 15%;
+      right: 10%;
+    }
+
+    .circle.large {
+      width: 250px;
+      height: 250px;
+      background: #bbdefb;
+      top: 50%;
+      left: 70%;
+    }
+
+    @keyframes move {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-40px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>404</h1>
+    <h2>Такої сторінки не знайдено</h2>
+    <p>Можливо, ви ввели неправильну адресу або сторінка була видалена.</p>
+    <a href="index.html">На головну</a>
+  </div>
+
+  <div class="circle small"></div>
+  <div class="circle medium"></div>
+  <div class="circle large"></div>
+</body>
+</html>
