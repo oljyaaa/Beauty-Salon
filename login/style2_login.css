@@ -1,0 +1,193 @@
+/* Загальні стилі */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #758467, #819171, #9CAF88, #CBD5C0, #DFE6DA);
+    background-size: 400% 400%;
+    animation: gradientShift 12s ease infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: #333;
+}
+
+/* Анімація руху градієнта */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Навігаційна панель */
+.nav-bar {
+    width: 100%;
+    background: rgba(203, 213, 192, 0.85); /* ash gray прозорий */
+    padding: 12px 0;
+    position: fixed;
+    top: 0;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    border-bottom: 2px solid #DFE6DA;
+    z-index: 1000;
+}
+
+.nav-bar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-bar ul li {
+    margin: 0 20px;
+}
+
+.nav-bar ul li a {
+    color: #4a5440;
+    text-decoration: none;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+
+.nav-bar ul li a.active, 
+.nav-bar ul li a:hover {
+    background: rgba(223, 230, 218, 0.7);
+    color: #2f352b;
+    font-weight: bold;
+}
+
+/* Контейнер для форми */
+.login-container {
+    margin-top: 90px; /* Відступ для меню */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 420px;
+    padding: 20px;
+}
+
+/* Форма логіна */
+.login-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 100%;
+    border: 2px solid #CBD5C0;
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.login-card h1 {
+    color: #819171;
+    margin-bottom: 12px;
+}
+
+.login-card p {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+/* Поля */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #4a5440;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #CBD5C0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-color: #DFE6DA;
+}
+
+.form-group input:focus {
+    border-color: #819171;
+    outline: none;
+    box-shadow: 0 0 10px rgba(129, 145, 113, 0.4);
+    transform: scale(1.02);
+}
+
+/* Кнопка входу */
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #819171, #9CAF88);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+    background: linear-gradient(135deg, #758467, #819171);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Посилання для реєстрації */
+.login-link a {
+    color: #819171;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.login-link a:hover {
+    color: #758467;
+    text-decoration: underline;
+}
+
+/* Кнопка Home */
+.btn-home {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 12px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    background: #819171;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    z-index: 1100;
+}
+
+.btn-home:hover {
+    background: #758467;
+    transform: scale(1.05);
+}
