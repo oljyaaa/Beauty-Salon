@@ -1,35 +1,78 @@
 import React, { useState } from 'react';
 import { 
   StyleSheet, View, Text, TextInput, TouchableOpacity, 
-  SafeAreaView, KeyboardAvoidingView, Platform, Alert 
+  SafeAreaView, KeyboardAvoidingView, Platform, Alert, ActivityIndicator
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../constants/Colors';
 
+// АДРЕСА API
+const API_URL = 'https://thebeauty-room.com/api.php'; 
+
 export default function LoginScreen() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = () => {
-    const login = email.trim().toLowerCase();
-    const pass = password.trim();
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Увага', 'Будь ласка, введіть Email та Пароль');
+      return;
+    }
 
-    if (login === 'creator' && pass === '1111') {
-      router.replace({ pathname: '/', params: { role: 'creator' } });
-    } 
-    else if (login === 'admin' && pass === '1234') {
-      router.replace({ pathname: '/', params: { role: 'admin' } });
-    } 
-    else {
-      Alert.alert('Помилка', 'Невірний логін або пароль');
+    setIsLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append('action', 'login');
+      formData.append('email', email);
+      formData.append('password', password);
+
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const textResponse = await response.text();
+
+      try {
+        const json = JSON.parse(textResponse);
+        
+        if (json.status === 'success') {
+          const userRole = json.user.role; 
+          const userId = json.user.id;
+          
+          // ДОДАНО: Передаємо permissions разом з іншими даними
+          router.replace({ 
+            pathname: '/', 
+            params: { 
+              role: userRole, 
+              userId: userId, 
+              username: json.user.username,
+              permissions: json.user.permissions // <--- Ось ця зміна
+            } 
+          });
+
+        } else {
+          Alert.alert('Помилка входу', json.message);
+        }
+      } catch (parseError) {
+        console.error("Помилка JSON:", textResponse);
+        Alert.alert('Помилка сервера', 'Неправильна відповідь від сервера.');
+      }
+    } catch (error) {
+      Alert.alert('Помилка мережі', 'Не вдалося з\'єднатися з сервером');
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.content}>
+        
         <View style={styles.logoContainer}>
           <View style={styles.logoCircle}>
             <Ionicons name="rose" size={60} color="#FFF" />
@@ -39,21 +82,39 @@ export default function LoginScreen() {
         </View>
 
         <View style={styles.form}>
-          <Text style={styles.label}>Логін</Text>
+          <Text style={styles.label}>Email</Text>
           <TextInput 
-            style={styles.input} placeholder="Введіть логін" autoCapitalize="none"
-            value={email} onChangeText={setEmail} placeholderTextColor="#999"
+            style={styles.input} 
+            placeholder="Введіть ваш email" 
+            autoCapitalize="none"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
+            placeholderTextColor="#999"
           />
+
           <Text style={styles.label}>Пароль</Text>
           <TextInput 
-            style={styles.input} placeholder="••••••" secureTextEntry
-            value={password} onChangeText={setPassword} placeholderTextColor="#999"
+            style={styles.input} 
+            placeholder="••••••" 
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+            placeholderTextColor="#999"
           />
-          <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
-            <Text style={styles.loginBtnText}>Увійти</Text>
-            <Ionicons name="arrow-forward" size={20} color="#FFF" />
+
+          <TouchableOpacity style={styles.loginBtn} onPress={handleLogin} disabled={isLoading}>
+            {isLoading ? (
+              <ActivityIndicator color="#FFF" />
+            ) : (
+              <>
+                <Text style={styles.loginBtnText}>Увійти</Text>
+                <Ionicons name="arrow-forward" size={20} color="#FFF" />
+              </>
+            )}
           </TouchableOpacity>
         </View>
+
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
