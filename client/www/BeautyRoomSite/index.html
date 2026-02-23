@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <link rel="icon" href="images/logopnd.png" type="image/png">
+    <title>Beauty Room</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Prata&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/ionicons.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+    
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* --- Основний текст та заголовки (Темно-сірий) --- */
+        body, p, .text p, span, li {
+            color: #444444 !important;
+        }
+        h1, h2, h3, h4, h5, h6, .heading-section h2, .subheading {
+            color: #333333 !important;
+        }
+        
+        /* --- Посилання --- */
+        a {
+            color: #444444;
+        }
+        a:hover, .ftco-footer-social li a:hover span {
+            color: #808080 !important;
+            border-color: #808080 !important;
+        }
+        .nav-link {
+            color: #333333 !important;
+        }
+
+        /* --- Кнопки (Основні - Primary) --- */
+        .btn.btn-primary {
+            background: #808080 !important;
+            border: 1px solid #808080 !important;
+            color: #ffffff !important;
+        }
+        .btn.btn-primary:hover {
+            background: #666666 !important;
+            border-color: #666666 !important;
+            color: #ffffff !important;
+        }
+
+        /* --- Кнопки (Контурні - Outline) --- */
+        .btn.btn-outline-primary {
+            border: 1px solid #808080 !important;
+            color: #808080 !important;
+        }
+        .btn.btn-outline-primary:hover {
+            background: #808080 !important;
+            border-color: #808080 !important;
+            color: #ffffff !important;
+        }
+
+        /* Кнопки "Переглянути" в секції пропозицій */
+        .btn.btn-white {
+             color: #333333 !important;
+        }
+        .btn.btn-white:hover {
+             color: #808080 !important;
+        }
+
+        /* --- Іконки та акценти --- */
+        .do-list li a span.ion-ios-checkmark-circle {
+            color: #808080 !important;
+        }
+        .services .icon span {
+             color: #808080 !important;
+        }
+        .ftco-footer-social li a span {
+            color: #666666 !important;
+            border: 1px solid #cccccc !important;
+        }
+        .icon-heart {
+             color: #808080 !important;
+        }
+        .block-23 ul li span.icon {
+            color: #808080 !important;
+        }
+
+        .bg-light {
+            background-color: #f8f9fa !important;
+        }
+        .block-18 .number {
+            color: #333333 !important;
+        }
+
+        /* === КОШИК (такий самий стиль, як на інших сторінках) === */
+        .nav-cart{
+          position:relative;
+          display:inline-flex;
+          align-items:center;
+          justify-content:center;
+          width:40px;
+          height:40px;
+          border-radius:50%;
+          background:#e0e0e0;
+          cursor:pointer;
+          transition:.2s;
+          margin-left:10px;
+        }
+        .nav-cart:hover{
+          background:#d0d0d0;
+        }
+        .nav-cart svg{
+          width:20px;
+          height:20px;
+          color:#555;
+        }
+        .cart-badge{
+          position:absolute;
+          top:-3px;
+          right:-3px;
+          background:#808080;
+          color:#fff;
+          font-size:10px;
+          padding:2px 5px;
+          border-radius:10px;
+          min-width:18px;
+          text-align:center;
+          line-height:1.2;
+          font-weight:700;
+        }
+        .cart-drawer{
+          position:fixed;
+          right:-420px;
+          top:0;
+          width:420px;
+          max-width:92vw;
+          height:100vh;
+          background:#ffffff !important;
+          z-index:1050;
+          box-shadow:-10px 0 30px rgba(0,0,0,.15);
+          transition:right .28s ease-in-out;
+          display:flex;
+          flex-direction:column;
+        }
+        .cart-drawer.open{ right:0; }
+        .cart-head,
+        .cart-body,
+        .cart-foot{
+          background:#ffffff;
+        }
+        .cart-head{
+          padding:16px 18px;
+          border-bottom:1px solid #eee;
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+        }
+        .cart-body{
+          overflow:auto;
+          padding:12px 16px;
+          flex:1;
+        }
+        .cart-empty{
+          color:#888;
+          padding:18px;
+          text-align:center;
+        }
+        .cart-item{
+          display:grid;
+          grid-template-columns:1fr auto auto;
+          grid-column-gap:10px;
+          align-items:center;
+          padding:10px 0;
+          border-bottom:1px dashed #e8e8ef;
+        }
+        .cart-item .title{
+          font-size:14px;
+          font-weight:600;
+        }
+        .cart-item .price{
+          font-weight:700;
+        }
+        .cart-item button{
+          border:none;
+          background:transparent;
+          color:#b02a37;
+          cursor:pointer;
+        }
+        .cart-foot{
+          border-top:1px solid #eee;
+          padding:14px 16px;
+        }
+        .btn-outline-danger.btn-sm{
+          padding:2px 8px;
+        }
+        #backdrop{
+          position:fixed;
+          inset:0;
+          background:rgba(0,0,0,.35);
+          display:none;
+          z-index:1049;
+        }
+        /* =========================
+   HEADER / NAV (як blog-single)
+   ========================= */
+
+/* Лінки меню */
+.ftco_navbar .navbar-nav .nav-link{
+  color:#333333 !important;
+  padding: 0.75rem 1rem;
+  position: relative;
+  transition: color .2s;
+}
+
+/* Підкреслення при ховері */
+.ftco_navbar .navbar-nav .nav-link::after{
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:0.25rem;
+  width:0;
+  height:2px;
+  background:#808080;
+  transition: width .2s;
+}
+
+.ftco_navbar .navbar-nav .nav-link:hover{
+  color:#000000 !important;
+}
+.ftco_navbar .navbar-nav .nav-link:hover::after{
+  width:100%;
+}
+
+/* Активний пункт */
+.ftco_navbar .navbar-nav .nav-item.active .nav-link{
+  color:#000000 !important;
+  font-weight:600;
+}
+.ftco_navbar .navbar-nav .nav-item.active .nav-link::after{
+  width:100%;
+}
+
+/* Кошик — як на blog-single */
+.nav-cart{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#e0e0e0;
+  cursor:pointer;
+  transition:.2s;
+  margin-left:10px;
+}
+.nav-cart:hover{ background:#d0d0d0; }
+.nav-cart svg{ width:20px; height:20px; color:#555; }
+
+.cart-badge{
+  position:absolute;
+  top:-3px;
+  right:-3px;
+  background:#808080;
+  color:#fff;
+  font-size:10px;
+  padding:2px 5px;
+  border-radius:10px;
+  min-width:18px;
+  text-align:center;
+  line-height:1.2;
+  font-weight:700;
+}
+
+/* =========================
+   FIX: контент не залазить під fixed navbar
+   + мобілка: меню з самого верху
+   ========================= */
+
+/* Десктоп: відступ зверху для всього контенту */
+@media (min-width: 992px){
+  body{ padding-top: 90px; }
+}
+
+/* Мобілка: меню з самого верху, відступ робимо тільки секції */
+@media (max-width: 991px){
+  body{ padding-top: 0 !important; }
+
+  .ftco_navbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+  }
+
+  /* Щоб hero/контент не ліз під хедер */
+  .hero-wrap,
+  .ftco-section{
+    margin-top: 0 !important;
+    padding-top: 80px;
+  }
+}
+.beauty-carousel .carousel-img{
+  height: 420px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.15);
+}
+
+/* Стрілки */
+.beauty-carousel .owl-nav button{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:#ffffff !important;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  box-shadow:0 6px 20px rgba(0,0,0,.2);
+}
+
+.beauty-carousel .owl-nav .owl-prev{ left:-20px; }
+.beauty-carousel .owl-nav .owl-next{ right:-20px; }
+
+/* Крапки */
+.beauty-carousel .owl-dots .owl-dot span{
+  background:#cccccc;
+}
+.beauty-carousel .owl-dots .owl-dot.active span{
+  background:#808080;
+}
+
+/* Мобілка */
+@media (max-width: 576px){
+  .beauty-carousel .carousel-img{
+    height:260px;
+  }
+}
+
+}
+
+
+
+@media (max-width: 576px){
+
+  .ftco-intro{
+    padding: 60px 0;
+    background-position: center;
+  }
+
+  .ftco-intro h2{
+    font-size: 24px;
+    line-height: 1.3;
+    margin-bottom: 20px;
+  }
+
+  .ftco-intro p{
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .ftco-intro .do-list{
+    margin-top: 24px !important;
+  }
+
+  .ftco-intro .do-list li a{
+    display: block;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 14px 14px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    color: #fff;
+  }
+
+  .ftco-intro .do-list li a span{
+    font-size: 18px;
+    color: #fff;
+  }
+}
+/* =========================
+   ТІЛЬКИ МОБІЛЬНА ВЕРСІЯ
+   ========================= */
+@media (max-width: 576px){
+
+  /* затемнення фону */
+  .ftco-intro{
+    position: relative;
+  }
+
+  .ftco-intro::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background: rgba(0,0,0,0.65);
+  }
+
+  .ftco-intro .container{
+    position: relative;
+    z-index: 2;
+  }
+
+  /* текст */
+  .ftco-intro h2{
+    color:#ffffff !important;
+    font-size:26px;
+    line-height:1.35;
+  }
+
+  .ftco-intro p{
+    color:#ffffff !important;
+    font-size:16px;
+    line-height:1.75;
+  }
+
+  /* список — картки */
+  .ftco-intro .do-list li{
+    margin-bottom:12px;
+  }
+
+  .ftco-intro .do-list li a{
+    display:block;
+    background:#ffffff;
+    color:#000000 !important;
+    padding:14px 16px;
+    border-radius:14px;
+    font-size:14px;
+    line-height:1.6;
+  }
+
+  .ftco-intro .do-list li a span{
+    color:#808080;
+    font-size:18px;
+  }
+
+}
+
+/* =========================
+   MOBILE CTA BUTTONS — FORCE
+   ========================= */
+@media (max-width: 576px){
+
+  /* Контейнер з кнопками */
+  .hero-wrap .btn,
+  .ftco-intro .btn{
+    display: block !important;
+    width: 100% !important;
+    margin: 10px 0 !important;
+    text-align: center;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    border-radius: 16px !important;
+  }
+
+  /* Основна кнопка */
+  .hero-wrap a.btn-primary,
+  .ftco-intro a.btn-primary{
+    background: #969696 !important;
+    border: 2px solid #969696 !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.45) !important;
+  }
+
+  /* Hover / tap */
+  .hero-wrap a.btn-primary:active,
+  .ftco-intro a.btn-primary:active{
+    background: #1a1a1a !important;
+  }
+
+  /* Друга кнопка */
+  .hero-wrap a.btn-outline-primary,
+  .ftco-intro a.btn-outline-primary{
+    background: #ffffff !important;
+    border: 2px solid #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .hero-wrap a.btn-outline-primary:active,
+  .ftco-intro a.btn-outline-primary:active{
+    background: #eaeaea !important;
+  }
+
+}
+
+    </style>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light ftco_navbar ftco-navbar-light" id="ftco-navbar" style="background-color:#d9d9d9 !important;">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="images/logopnd.png" alt="Beauty Room" style="height:50px;">
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> 
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active"><a href="index.html" class="nav-link">Головна</a></li>
+            <li class="nav-item"><a href="specialists.html" class="nav-link">Наші працівники</a></li>
+            <li class="nav-item"><a href="pricing.php" class="nav-link">Ціни та послуги</a></li>
+            <li class="nav-item"><a href="blog-single.php" class="nav-link">Поділись своїми враженнями</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-link">Зв'язатися / Запис</a></li>
+
+            <!-- 🛒 Іконка кошика -->
+            <li class="nav-item d-flex align-items-center">
+              <div id="openCart" class="nav-cart" title="Кошик">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m12-9l2 9M10 21h4"/>
+                </svg>
+                <span id="cartBadge" class="cart-badge" style="display:none">0</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-wrap js-fullheight" style="background-image: url('images/bg_1.jpg');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+          <div class="col-md-10 ftco-animate text-center">
+            <a class="navbar-brand" href="index.html">
+              <img src="images/logopnd.png" alt="Beauty Room" style="height:50px;">
+            </a>
+            <h1>Beauty &amp; Room </h1>
+            <div class="row justify-content-center">
+              <div class="col-md-7 mb-3">
+                <p>Косметологія. Масаж. Елос - епіляція. </p>
+              </div>
+            </div>
+            <p>
+              <a href="pricing.php" class="btn btn-primary p-3 px-5 py-4 mr-md-2">Наші послуги</a>
+              <a href="contact.html" class="btn btn-outline-primary p-3 px-5 py-4 ml-md-2">Записатись</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+        
+    <section class="ftco-section ftco-intro" style="background-image: url(images/intro.jpg);">
+      <div class="container">
+        <div class="row justify-content-end">
+          <div class="col-md-6">
+            <div class="heading-section ftco-animate">
+              <h2 class="mb-4">Переваги відвідати масаж саме у нас</h2>
+            </div>
+            <p class="ftco-animate">Відкрийте для себе світ релаксації та відновлення у Beauty Room. Наш масаж — це не просто процедура, а справжній ритуал турботи про ваше тіло та душу. Ось чому клієнти обирають саме нас:</p>
+            <ul class="mt-5 do-list">
+              <li class="ftco-animate"><a href="#"><span class="ion-ios-checkmark-circle mr-3"></span>Позбавлення від болю та напруги: Ефективно знімаємо дискомфорт у спині, шиї та м'язах.</a></li> 
+              <li class="ftco-animate"><a href="#"><span class="ion-ios-checkmark-circle mr-3"></span>Детоксикація та покращення кровообігу: Стимулюємо лімфатичну систему, що допомагає виводити токсини.</a></li>
+              <li class="ftco-animate"><a href="#"><span class="ion-ios-checkmark-circle mr-3"></span>Заряд енергії та гарного настрою: Відчуйте прилив сил та покращення емоційного стану.</a></li>
+              <li class="ftco-animate"><a href="#"><span class="ion-ios-checkmark-circle mr-3"></span>Підвищення тонусу шкіри: Масаж робить шкіру більш пружною, гладкою та сяючою.</a></li>
+              <li class="ftco-animate"><a href="#"><span class="ion-ios-checkmark-circle mr-3"></span>Професійний підхід до вашого тіла. Наші майстри — це досвідчені спеціалісти, які володіють різноманітними техніками масажу. Ми підберемо програму індивідуально для вас, враховуючи потреби вашого організму, щоб досягти максимального ефекту — чи то зняття напруги після робочого дня, чи відновлення після фізичних навантажень.</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ftco-section ftco-no-pt ftco-no-pb">
+      <div class="container">
+        <div class="row no-gutters">
+          <div class="col-md-4 d-flex align-items-stretch">
+            <div class="offer-deal text-center px-2 px-lg-5">
+              <div class="img" style="background-image: url(images/offer-deal-1.jpg);"></div>
+              <div class="text mt-4">
+                <h3 class="mb-4">Найкраще для Вас!</h3>
+                <p class="mb-5">У нас ви можете обрати будь-що для вашої краси.</p>
+                <p><a href="pricing.html" class="btn btn-white px-4 py-3"> Переглянути <span class="ion-ios-arrow-round-forward"></span></a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 d-flex align-items-stretch">
+            <div class="offer-deal active text-center px-2 px-lg-5">
+              <div class="img" style="background-image: url(images/offer-deal-2.jpg);"></div>
+              <div class="text mt-4">
+                <h3 class="mb-4">Чудові майстри та сервіс.</h3>
+                <p class="mb-5">Познайомтесь з нашими майстрами</p>
+                <p><a href="specialists.html" class="btn btn-white px-4 py-3"> Переглянути <span class="ion-ios-arrow-round-forward"></span></a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 d-flex align-items-stretch">
+            <div class="offer-deal text-center px-2 px-lg-5">
+              <div class="img" style="background-image: url(images/offer-deal-3.jpg);"></div>
+              <div class="text mt-4">
+                <h3 class="mb-4">Консультування для всіх!</h3>
+                <p class="mb-5">Залишіть заявку і наш адміністратор вам перетелефонує.</p>
+                <p><a href="contact.html" class="btn btn-white px-4 py-3"> Переглянути <span class="ion-ios-arrow-round-forward"></span></a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="ftco-section ftco-section-services bg-light">
+      <div class="container-fluid px-md-5">
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-3">
+            <div class="services text-center ftco-animate">
+              <div class="icon d-flex justify-content-center align-items-center">
+                <span class="flaticon-candle"></span>
+              </div>
+              <div class="text mt-3">
+                <h3><a href="pricing.php">Корегування фігури</a></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="services text-center ftco-animate">
+              <div class="icon d-flex justify-content-center align-items-center">
+                <span class="flaticon-beauty-treatment"></span>
+              </div>
+              <div class="text mt-3">
+                <h3><a href="pricing.php">Доглядові процедури</a></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="services text-center ftco-animate">
+              <div class="icon d-flex justify-content-center align-items-center">
+                <span class="flaticon-relax"></span>
+              </div>
+              <div class="text mt-3">
+                <h3><a href="pricing.php">Масаж</a></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ftco-counter img" id="section-counter" style="background-image: url(images/bg_3.jpg);" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-10">
+            <div class="row">
+              <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 text-center">
+                  <div class="text">
+                    <strong class="number" data-number="1000">0</strong>
+                    <span>Щасливих клієнтів близько</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 text-center">
+                  <div class="text">
+                    <strong class="number" data-number="60">0</strong>
+                    <span>Послуги</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 text-center">
+                  <div class="text">
+                    <strong class="number" data-number="25">0</strong>
+                    <span>Досвіду більше</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 text-center">
+                  <div class="text">
+                    <strong class="number" data-number="100">0</strong>
+                    <span>Пройдено навчань та отримано сертифікатів</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+<section class="ftco-section bg-light">
+  <div class="container">
+    <div class="row justify-content-center mb-4">
+      <div class="col-md-7 text-center">
+        <h3 class="subheading">Beauty Room</h3>
+        <h2 class="mb-1">Цікава інформація</h2>
+      </div>
+    </div>
+
+    <div class="owl-carousel beauty-carousel ftco-animate">
+
+  <div class="item">
+    <a href="../images/pr1.jpg" class="image-popup">
+      <div class="carousel-img" style="background-image:url('../images/pr1.jpg');"></div>
+    </a>
+  </div>
+
+  <div class="item">
+    <a href="../images/pr2.jpg" class="image-popup">
+      <div class="carousel-img" style="background-image:url('../images/pr2.jpg');"></div>
+    </a>
+  </div>
+
+  <div class="item">
+    <a href="../images/pr3.jpg" class="image-popup">
+      <div class="carousel-img" style="background-image:url('../images/pr3.jpg');"></div>
+    </a>
+  </div>
+
+  <div class="item">
+    <a href="../images/pr4.jpg" class="image-popup">
+      <div class="carousel-img" style="background-image:url('../images/pr4.jpg');"></div>
+    </a>
+  </div>
+
+  <div class="item">
+    <a href="../images/pr5.jpg" class="image-popup">
+      <div class="carousel-img" style="background-image:url('../images/pr5.jpg');"></div>
+    </a>
+  </div>
+
+</div>
+
+
+    <section class="ftco-section bg-light">
+      <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 heading-section ftco-animate text-center">
+            <h3 class="subheading">Instagram</h3>
+            <h2 class="mb-1">Останні Reels</h2>
+          </div>
+        </div>
+        <div class="row d-flex">
+          <div class="col-md-4 d-flex ftco-animate">
+            <div class="blog-entry justify-content-end">
+              <a href="https://www.instagram.com/dr.cosmetolog_olga_svetla/reel/DI32LSZs6zq/" target="_blank" class="block-20" style="background-image: url('../images/reel1.jpg');">
+              </a>
+              <div class="text p-4 float-right d-block">
+                <div class="d-flex align-items-center pt-2 mb-4">
+                  <div class="one"><span class="day">25</span></div>
+                  <div class="two"><span class="yr">2025</span><span class="mos">Вересня</span></div>
+                </div>
+                <h3 class="heading mt-2"><a href="https://www.instagram.com/dr.cosmetolog_olga_svetla/reel/DI32LSZs6zq/" target="_blank">Переглянути Reels</a></h3>
+                <p>Косметологічні поради та процедури.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 d-flex ftco-animate">
+            <div class="blog-entry justify-content-end">
+              <a href="https://www.instagram.com/reel/DPI5wNojEFN/?utm_source=ig_web_copy_link&igsh=MTJuMjA1NWY0bzJ4MA==" target="_blank" class="block-20" style="background-image: url('images/logopnd.png');">
+              </a>
+              <div class="text p-4 float-right d-block">
+                <div class="d-flex align-items-center pt-2 mb-4">
+                  <div class="one"><span class="day">28</span></div>
+                  <div class="two"><span class="yr">2025</span><span class="mos">Вересня</span></div>
+                </div>
+                <h3 class="heading mt-2"><a href="https://www.instagram.com/reel/DPI5wNojEFN/?utm_source=ig_web_copy_link&igsh=MTJuMjA1NWY0bzJ4MA==" target="_blank">Переглянути Reels</a></h3>
+                <p>Офіційне відкриття у місті Бердичів!</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 d-flex ftco-animate">
+            <div class="blog-entry">
+              <a href="https://www.instagram.com/reel/DOLE5lgDMqd/?utm_source=ig_web_copy_link&igsh=MTNkeHppOXFscTluag==" target="_blank" class="block-20" style="background-image: url('images/elos.png');">
+              </a>
+              <div class="text p-4 float-right d-block">
+                <div class="d-flex align-items-center pt-2 mb-4">
+                  <div class="one"><span class="day">04</span></div>
+                  <div class="two"><span class="yr">2025</span><span class="mos">Вересня</span></div>
+                </div>
+                <h3 class="heading mt-2"><a href="https://www.instagram.com/reel/DOLE5lgDMqd/?utm_source=ig_web_copy_link&igsh=MTNkeHppOXFscTluag==" target="_blank">Переглянути Reels</a></h3>
+                <p>Чи сумісні засмага та Elos - епіляція?</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="ftco-gallery ftco-section">
+      <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 heading-section ftco-animate text-center">
+            <h3 class="subheading">Фотографії</h3>
+            <h2 class="mb-1">Наші останні світлини</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <a href="https://www.instagram.com/p/DPN4Z6fDIL9/" class="gallery d-flex align-items-center justify-content-center"
+               style="background-image: url('images/woman.png'); background-size: cover; background-position: center; height: 300px;">
+              <div class="icon mb-4 d-flex align-items-center justify-content-center">
+                <span class="icon-instagram"></span>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-md-3">
+            <a href="https://www.instagram.com/p/DPqsAYrjAqa/?utm_source=ig_web_copy_link&igsh=MXYyM2czNXR1Ynhpbw==" class="gallery d-flex align-items-center justify-content-center"
+               style="background-image: url('images/post.png'); background-size: cover; background-position: center; height: 300px;">
+              <div class="icon mb-4 d-flex align-items-center justify-content-center">
+                <span class="icon-instagram"></span>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-md-3">
+            <a href="https://www.instagram.com/p/DPN4Z6fDIL9/" class="gallery d-flex align-items-center justify-content-center"
+               style="background-image: url('images/woman.png'); background-size: cover; background-position: center; height: 300px;">
+              <div class="icon mb-4 d-flex align-items-center justify-content-center">
+                <span class="icon-instagram"></span>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-md-3">
+            <a href="https://www.instagram.com/p/DPN4Z6fDIL9/" class="gallery d-flex align-items-center justify-content-center"
+               style="background-image: url('images/woman.png'); background-size: cover; background-position: center; height: 300px;">
+              <div class="icon mb-4 d-flex align-items-center justify-content-center">
+                <span class="icon-instagram"></span>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <footer class="ftco-footer ftco-section">
+      <div class="container">
+        <div class="row d-flex">
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Beauty Room</h2>
+              <p>Простір краси✨</p>
+              <ul class="ftco-footer-social list-unstyled float-lft mt-3">
+                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="https://www.facebook.com/p/Beautyroom_berdichev-100072094441650/?locale=uk_UA"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="https://www.instagram.com/dr.cosmetolog_olga_svetla?utm_source=ig_web_button_share_sheet&igsh=aWF0ZmJ3NXpyY2d2"><span class="icon-instagram"></span></a></li>
+              </ul>
+              <ul class="list-unstyled">
+                <li><a href="../rozraby.html">Підтримати розробників💻</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4 ml-md-4">
+              <h2 class="ftco-heading-2">Часто відвідують</h2>
+              <ul class="list-unstyled">
+                <li><a href="specialists.html">Наші спеціалісти</a></li>
+                <li><a href="pricing.html">Доглядові процедури</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Швидкі посилання</h2>
+              <ul class="list-unstyled">
+                <li><a href="about.html">Про нас</a></li>
+                <li><a href="treatments.html">Послуги</a></li>
+                <li><a href="specialists.html">Наші працівники</a></li>
+                <li><a href="contact.html">Зв'язатися з нами</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Маєте запитання?</h2>
+              <div class="block-23 mb-3">
+                <ul>
+                  <li><span class="icon icon-map-marker"></span><span class="text">вулиця Європейська, 71, Бердичів, Житомирська область, 13300</span></li>
+                  <li>
+                    <a href="tel:+380986411412">
+                      <span class="icon icon-phone"></span>
+                      <span class="text">+380 98 641 1412</span>
+                    </a>
+                  </li>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text"></span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <p class="mb-0">
+              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart" aria-hidden="true"></i>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- 🛒 Drawer кошика -->
+    <aside id="cartDrawer" class="cart-drawer" aria-hidden="true">
+      <div class="cart-head">
+        <h5>Кошик</h5>
+        <div>
+          <button id="clearCart" class="btn btn-outline-danger btn-sm">Очистити</button>
+          <button id="closeCart" class="btn btn-sm btn-outline-secondary">Закрити</button>
+        </div>
+      </div>
+      <div id="cartList" class="cart-body">
+        <div class="cart-empty">Кошик порожній</div>
+      </div>
+      <div class="cart-foot">
+        <div class="d-flex justify-content-between mb-2">
+          <strong>Разом:</strong><strong id="cartTotal">0 грн</strong>
+        </div>
+        <!-- З головної ведемо на сторінку запису -->
+        <a href="contact.html#appointmentForm" class="btn btn-primary btn-block">Перейти до запису</a>
+      </div>
+    </aside>
+    <div id="backdrop"></div>
+    
+    <div id="ftco-loader" class="show fullscreen">
+      <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#808080"/>
+      </svg>
+    </div>
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/jquery.timepicker.min.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="js/google-map.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Логіка кошика -->
+    <script>
+      const LS_KEY = 'beautyRoomCart';
+      const drawer = document.getElementById('cartDrawer');
+      const backdrop = document.getElementById('backdrop');
+      const cartList = document.getElementById('cartList');
+      const cartTotal = document.getElementById('cartTotal');
+      const badge = document.getElementById('cartBadge');
+
+      function loadCart(){
+        try{
+          return JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+        }catch(e){
+          console.error(e);
+          return [];
+        }
+      }
+      function saveCart(c){
+        localStorage.setItem(LS_KEY, JSON.stringify(c));
+      }
+      function sumCart(c){
+        return c.reduce((s,x)=>s+(Number(x.price)||0),0);
+      }
+      function removeFromCart(id){
+        const c = loadCart().filter(x=>x.id!==id);
+        saveCart(c);
+        renderCart();
+      }
+      function clearCart(){
+        saveCart([]);
+        renderCart();
+      }
+
+      function renderCart(){
+        const c = loadCart();
+        const n = c.length;
+        if(badge){
+          badge.style.display = n ? 'block' : 'none';
+          badge.textContent = n;
+        }
+        if(!n){
+          cartList.innerHTML = '<div class="cart-empty">Кошик порожній</div>';
+          cartTotal.textContent = '0 грн';
+        }else{
+          cartList.innerHTML = c.map(x=>`
+            <div class="cart-item">
+              <div class="title">
+                ${x.name}
+                <div class="text-muted" style="font-size:12px">${x.cat || ''}</div>
+              </div>
+              <div class="price">${x.price} грн</div>
+              <button title="Видалити" onclick="removeFromCart('${x.id}')">&times;</button>
+            </div>
+          `).join('');
+          cartTotal.textContent = sumCart(c) + ' грн';
+        }
+      }
+
+      function openCart(){
+        drawer.classList.add('open');
+        backdrop.style.display='block';
+        drawer.setAttribute('aria-hidden','false');
+      }
+      function closeCart(){
+        drawer.classList.remove('open');
+        backdrop.style.display='none';
+        drawer.setAttribute('aria-hidden','true');
+      }
+
+      document.getElementById('openCart').addEventListener('click', openCart);
+      document.getElementById('closeCart').addEventListener('click', closeCart);
+      document.getElementById('clearCart').addEventListener('click', clearCart);
+      backdrop.addEventListener('click', closeCart);
+
+      // Ініціалізація кошика
+      renderCart();
+    </script>
+
+    <!-- ✅ СПРАВЖНЄ ЗАКРИТТЯ МЕНЮ ПРИ КЛІКУ ПОЗА НИМ -->
+    <script>
+      $(function () {
+        // Закриття при кліку поза меню
+        $(document).on('click', function (e) {
+          var $target = $(e.target);
+          var $navbarCollapse = $('#ftco-nav');
+
+          if (!$navbarCollapse.hasClass('show')) return;
+
+          if ($target.closest('.navbar').length) return;
+
+          $navbarCollapse.collapse('hide');
+        });
+
+        // Закриття при скролі
+        $(window).on('scroll', function () {
+          var $navbarCollapse = $('#ftco-nav');
+          if ($navbarCollapse.hasClass('show')) {
+            $navbarCollapse.collapse('hide');
+          }
+        });
+      });
+    </script>
+    <script>
+  $('.beauty-carousel').owlCarousel({
+    loop:true,
+    margin:20,
+    nav:true,
+    dots:true,
+    autoplay:true,
+    autoplayTimeout:3500,
+    autoplayHoverPause:true,
+    responsive:{
+      0:{ items:1 },
+      768:{ items:2 },
+      992:{ items:3 },
+      1200:{ items:4 }
+    }
+  });
+
+</script>
+
+  </body>
+</html>

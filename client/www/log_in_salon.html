@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In</title>
+  <link rel="stylesheet" href="style2_login.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <h1>Welcome Back</h1>
+      <p>Log in to your account</p>
+
+      <!-- Форма входу -->
+      <form id="login-form" action="login.php" method="POST">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" placeholder="Enter your password" required>
+        </div>
+
+        <button type="submit" class="btn-login">Log In</button>
+      </form>
+
+      <p class="login-link">
+        Don't have an account? <a href="login_salon.html">Sign up now</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

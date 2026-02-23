@@ -5,9 +5,9 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors } from '../constants/Colors';
 
-// АДРЕСА API
 const API_URL = 'https://thebeauty-room.com/api.php'; 
 
 export default function LoginScreen() {
@@ -18,7 +18,7 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      Alert.alert('Увага', 'Будь ласка, введіть Email та Пароль');
+      Alert.alert('Увага', 'Введіть Email та Пароль');
       return;
     }
 
@@ -29,41 +29,24 @@ export default function LoginScreen() {
       formData.append('email', email);
       formData.append('password', password);
 
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        body: formData,
-      });
-
+      const response = await fetch(API_URL, { method: 'POST', body: formData });
       const textResponse = await response.text();
 
       try {
         const json = JSON.parse(textResponse);
-        
         if (json.status === 'success') {
-          const userRole = json.user.role; 
-          const userId = json.user.id;
-          
-          // ДОДАНО: Передаємо permissions разом з іншими даними
-          router.replace({ 
-            pathname: '/', 
-            params: { 
-              role: userRole, 
-              userId: userId, 
-              username: json.user.username,
-              permissions: json.user.permissions // <--- Ось ця зміна
-            } 
-          });
-
+          // ВАЖЛИВО: Зберігаємо сесію, щоб не викидало на логін
+          await AsyncStorage.setItem('userData', JSON.stringify(json.user));
+          router.replace('/');
         } else {
           Alert.alert('Помилка входу', json.message);
         }
       } catch (parseError) {
         console.error("Помилка JSON:", textResponse);
-        Alert.alert('Помилка сервера', 'Неправильна відповідь від сервера.');
+        Alert.alert('Помилка сервера', 'Некоректна відповідь.');
       }
     } catch (error) {
-      Alert.alert('Помилка мережі', 'Не вдалося з\'єднатися з сервером');
-      console.error(error);
+      Alert.alert('Помилка мережі', 'Перевірте інтернет');
     } finally {
       setIsLoading(false);
     }
@@ -72,49 +55,20 @@ export default function LoginScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.content}>
-        
         <View style={styles.logoContainer}>
-          <View style={styles.logoCircle}>
-            <Ionicons name="rose" size={60} color="#FFF" />
-          </View>
+          <View style={styles.logoCircle}><Ionicons name="rose" size={60} color="#FFF" /></View>
           <Text style={styles.title}>Beauty Room</Text>
           <Text style={styles.subtitle}>Workspace</Text>
         </View>
-
         <View style={styles.form}>
           <Text style={styles.label}>Email</Text>
-          <TextInput 
-            style={styles.input} 
-            placeholder="Введіть ваш email" 
-            autoCapitalize="none"
-            keyboardType="email-address"
-            value={email}
-            onChangeText={setEmail}
-            placeholderTextColor="#999"
-          />
-
+          <TextInput style={styles.input} placeholder="Введіть email" autoCapitalize="none" keyboardType="email-address" value={email} onChangeText={setEmail} placeholderTextColor="#999" />
           <Text style={styles.label}>Пароль</Text>
-          <TextInput 
-            style={styles.input} 
-            placeholder="••••••" 
-            secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-            placeholderTextColor="#999"
-          />
-
+          <TextInput style={styles.input} placeholder="••••••" secureTextEntry value={password} onChangeText={setPassword} placeholderTextColor="#999" />
           <TouchableOpacity style={styles.loginBtn} onPress={handleLogin} disabled={isLoading}>
-            {isLoading ? (
-              <ActivityIndicator color="#FFF" />
-            ) : (
-              <>
-                <Text style={styles.loginBtnText}>Увійти</Text>
-                <Ionicons name="arrow-forward" size={20} color="#FFF" />
-              </>
-            )}
+            {isLoading ? <ActivityIndicator color="#FFF" /> : <><Text style={styles.loginBtnText}>Увійти</Text><Ionicons name="arrow-forward" size={20} color="#FFF" /></>}
           </TouchableOpacity>
         </View>
-
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

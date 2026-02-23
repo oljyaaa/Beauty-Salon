@@ -1,0 +1,559 @@
+/* --- Color variables for easy theming --- */
+:root {
+    --bg-color: #F8F7FF; /* Very light lavender background */
+    --sidebar-bg: #A391D6; /* Soft pastel purple */
+    --accent-color: #D3A4E1; /* Pink-lilac for buttons and accents */
+    --text-color: #4A4A68; /* Dark gray-blue for text */
+    --text-light: #7a7a9b; /* Lighter text */
+    --card-bg: #FFFFFF; /* Card color */
+    --border-color: #EAE6FF; /* Border color */
+    --shadow-color: rgba(163, 145, 214, 0.1); /* Shadow color */
+    --danger-color: #FF8A8A; /* Soft red for exit */
+}
+
+/* --- General styles --- */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    width: 240px;
+    background-color: var(--sidebar-bg);
+    color: #fff;
+    min-height: 100vh;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 5px 0px 25px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+.sidebar h2 {
+    font-family: 'Prata', serif;
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.sidebar .menu {
+    flex: 1;
+}
+
+.sidebar button {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 12px;
+    border-radius: 8px;
+    color: #fff;
+    margin-bottom: 10px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar button:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateX(5px);
+}
+
+.logout-btn {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+    font-weight: bold;
+}
+
+.logout-btn:hover {
+    background-color: #ff7070;
+    border-color: #ff7070;
+}
+
+/* --- Main content --- */
+.main {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto; /* Add scroll if content is long */
+}
+
+/* --- Toolbar --- */
+.toolbar {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border-color);
+}
+
+.toolbar input[type="text"] {
+    flex: 1;
+}
+
+/* --- Record cards and other elements --- */
+.email, .card {
+    background: var(--card-bg);
+    margin-bottom: 15px;
+    padding: 18px 22px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 15px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.email:hover, .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(163, 145, 214, 0.15);
+}
+
+.card {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+h3 {
+    margin: 15px 0;
+    color: var(--sidebar-bg);
+    font-family: 'Prata', serif;
+}
+
+/* --- Modal windows --- */
+.modal-overlay {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    
+    /* Animation styles */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-box {
+    background: var(--card-bg);
+    padding: 30px 35px;
+    border-radius: 16px;
+    width: 420px;
+    max-width: 95%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    
+    /* Animation styles */
+    transform: scale(0.95);
+    transition: transform 0.4s ease;
+}
+
+.modal-overlay.visible .modal-box {
+    transform: scale(1);
+}
+
+
+.modal-box h2 {
+    text-align: center;
+    color: var(--sidebar-bg);
+    font-family: 'Prata', serif;
+    margin-top: 0;
+}
+
+/* --- Input fields and form styling --- */
+.modal-box input,
+.modal-box select,
+.modal-box textarea,
+.toolbar input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 15px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.modal-box input:focus,
+.modal-box select:focus,
+.modal-box textarea:focus,
+.toolbar input:focus {
+    outline: none;
+    border-color: var(--sidebar-bg);
+    box-shadow: 0 0 0 3px rgba(163, 145, 214, 0.2);
+}
+
+.modal-box button[type="submit"] {
+    width: 100%;
+    background-color: var(--sidebar-bg);
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.modal-box button[type="submit"]:hover {
+    background-color: #937cc6;
+}
+
+.modal-box label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+
+/* 1. Styles for icons inside buttons */
+.sidebar button i {
+    margin-right: 12px;
+    width: 20px; /* Align text by icon width */
+    text-align: center;
+}
+
+/* 2. Style for active button in the sidebar */
+.sidebar button.active {
+    background-color: rgba(255, 255, 255, 0.25);
+    font-weight: bold;
+    box-shadow: inset 3px 0 0 #fff; /* Left line for emphasis */
+}
+
+/* 3. Styles for action buttons in records (archive, delete) */
+.record-actions {
+    display: flex;
+    gap: 8px;
+}
+.action-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-light);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+.action-btn:hover {
+    background-color: var(--bg-color);
+    color: var(--sidebar-bg);
+    border-color: var(--sidebar-bg);
+    transform: scale(1.1);
+}
+.action-btn.danger:hover {
+    color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+/* 4. Element appearance animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.email, .card {
+    /* Add animation to existing styles */
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0; /* Initial state for animation */
+}
+
+/* Staggered effect for the first few records */
+.email:nth-child(1), .card:nth-child(1) { animation-delay: 0.1s; }
+.email:nth-child(2), .card:nth-child(2) { animation-delay: 0.15s; }
+.email:nth-child(3), .card:nth-child(3) { animation-delay: 0.2s; }
+.email:nth-child(4), .card:nth-child(4) { animation-delay: 0.25s; }
+.email:nth-child(5), .card:nth-child(5) { animation-delay: 0.3s; }
+
+
+/* 5. Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--sidebar-bg);
+}
+
+/* --- Styles for the new "New Record" button --- */
+.add-record-container {
+    position: relative;
+}
+
+.main-add-btn {
+    background-color: var(--sidebar-bg);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.main-add-btn:hover {
+    background-color: #937cc6;
+}
+
+.add-record-dropdown {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(163, 145, 214, 0.25);
+    border: 1px solid var(--border-color);
+    width: 250px;
+    padding: 8px;
+    z-index: 100;
+    
+    /* Hidden by default */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.add-record-dropdown.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.add-record-dropdown a {
+    display: block;
+    padding: 10px 15px;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.add-record-dropdown a:hover {
+    background-color: var(--bg-color);
+    color: var(--sidebar-bg);
+}
+
+/* Styles for positioning buttons in cards */
+.card {
+    position: relative;
+    padding-top: 45px; /* Add top padding so text doesn't go under the button */
+}
+
+.card .action-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+
+
+/*
+===================================================
+>>> АДАПТИВНИЙ ДИЗАЙН (RESPONSIVE DESIGN)
+(Оновлені стилі для горизонтального мобільного меню)
+===================================================
+*/
+
+/*
+--- 1. Стилі для планшетів (Tablet - до 1024px) ---
+*/
+@media (max-width: 1024px) {
+    /* Додаємо плавний перехід для змін, які відбудуться на мобільному */
+    .sidebar {
+        width: 200px; /* Трохи вужчий сайдбар */
+        padding: 20px 15px;
+    }
+
+    .main {
+        padding: 30px 20px; /* Зменшуємо відступи в основному контенті */
+    }
+
+    .toolbar {
+        flex-direction: column; 
+        align-items: stretch;
+    }
+    
+    .toolbar input[type="text"] {
+        margin-bottom: 10px;
+    }
+
+    .email, .card {
+        padding: 15px 18px; 
+    }
+
+    .modal-box {
+        width: 380px; 
+        padding: 25px 30px;
+    }
+}
+
+
+/*
+--- 2. Стилі для мобільних пристроїв (Mobile - до 767px) ---
+*/
+
+
+/* --- Мобільна адаптація --- */
+@media (max-width: 768px) {
+    /* 1. Змінюємо розкладку сторінки */
+    body {
+        display: block; /* Забираємо flex, якщо він був на body */
+        padding-top: 60px; /* Місце для верхньої плашки з кнопкою меню */
+    }
+
+    /* 2. Сайдбар (меню) - ховаємо його за межі екрану */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px; /* Сховано зліва */
+        width: 260px;
+        height: 100%;
+        z-index: 1001;
+        transition: 0.3s ease;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    }
+
+    .sidebar.active {
+        left: 0; /* Показуємо при натисканні */
+    }
+
+    /* 3. Основна частина контенту */
+    .main {
+        margin-left: 0 !important; /* Прибираємо відступ зліва */
+        width: 100% !important;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    /* 4. Кнопка відкриття меню (Бургер) */
+    .mobile-menu-toggle {
+        display: flex !important; /* Показуємо тільки на мобільному */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        width: 45px;
+        height: 45px;
+        background: #333; /* Колір кнопки */
+        color: #fff;
+        border-radius: 5px;
+        z-index: 1002;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    /* 5. Адаптація списків записів (карток) */
+    .email, .user-item {
+        flex-direction: column; /* Елементи в стовпчик */
+        align-items: flex-start !important;
+    }
+    
+    .record-actions {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+    }
+
+    /* 6. Панель інструментів (пошук і кнопка додавання) */
+    .toolbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .add-record-container, #searchInput {
+        width: 100%;
+    }
+
+    .main-add-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* 7. Модальні вікна */
+    .modal-box {
+        width: 95%;
+        margin: 20px auto;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    /* 8. Специфічно для Creator Tool (Дашборд) */
+    .widget-grid, .service-list {
+        grid-template-columns: 1fr !important; /* Одна колонка */
+    }
+    
+    /* Оверлей для затемнення фону коли меню відкрите */
+    #mobileOverlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 1000;
+    }
+    #mobileOverlay.active {
+        display: block;
+    }
+}
+
+/* Приховуємо кнопку меню на комп'ютерах */
+.mobile-menu-toggle {
+    display: none;
+}

@@ -1,0 +1,20 @@
+/* 🔧 Debug режим: все робимо видимим */
+* {
+  color: black !important;       /* весь текст чорний */
+  background: none !important;   /* прибрати зайві бекґраунди */
+  opacity: 1 !important;         /* скасувати прозорість */
+  visibility: visible !important;/* завжди видно */
+}
+
+.js-fullheight, 
+.hero-wrap, 
+.ftco-animate {
+  height: auto !important;       /* скасувати примусову висоту */
+  min-height: auto !important;
+  display: block !important;
+}
+
+img, video {
+  max-width: 100% !important;    /* щоб не розтягувались */
+}
+

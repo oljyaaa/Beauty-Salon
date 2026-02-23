@@ -1,0 +1,237 @@
+/* --- Нові шрифти: Елегантний Serif для заголовків, чистий Sans-Serif для тексту --- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+/* --- Анімований "Бежевий" фон --- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    /* Новий світлий градієнт */
+    background: linear-gradient(-45deg, #E8DFCA, #F5EFE6, #FDF8F0, #E8DFCA);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #4E443A; /* Глибокий, теплий коричневий колір тексту */
+    padding: 40px 0;
+}
+
+/* Анімація руху градієнта */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Контейнер */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+/* --- Карточка (Світла, "паперова") --- */
+.register-card {
+    background: #FAF8F5; /* Дуже світлий кремовий фон */
+    padding: 40px;
+    border-radius: 16px;
+    /* М'яка, тепла тінь */
+    box-shadow: 0 10px 30px rgba(78, 68, 58, 0.15);
+    width: 100%;
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+    border: 1px solid #E0D9CD; /* Ледь помітна рамка */
+}
+
+/* Анімація появи */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* --- Заголовки (з новим шрифтом) --- */
+.register-card h1 {
+    font-family: 'Playfair Display', serif; /* Елегантний шрифт */
+    margin-bottom: 10px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #4E443A; /* Головний колір тексту */
+}
+
+.register-card p {
+    margin-bottom: 30px;
+    color: #6e665d; /* М'який, сіро-коричневий */
+    font-size: 16px;
+}
+
+/* Поля */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #819171; /* Приглушений зелений (як у першому варіанті) */
+    text-transform: none; /* Без великих літер */
+    letter-spacing: 0px;
+}
+
+/* --- Поля вводу (Світлі) --- */
+.form-group input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #DCD5C9; /* Світло-бежева рамка */
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    background: #FDFDFB; /* Майже білий фон */
+    color: #4E443A; /* Темний текст */
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+.form-group input:focus {
+    border-color: #819171; /* Зелена рамка при фокусі */
+    box-shadow: 0 0 10px rgba(129, 145, 113, 0.3); /* Зелене світіння */
+    outline: none;
+    transform: scale(1.01);
+}
+
+/* --- Кнопка Register (Зелена) --- */
+.btn-register {
+    width: 100%;
+    padding: 15px;
+    background: #819171; /* Акцентний зелений */
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    letter-spacing: 1px;
+}
+
+.btn-register:hover {
+    background: #718063; /* Темніше зелений */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(113, 128, 99, 0.3); /* Тінь при наведенні */
+}
+
+.btn-register:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Кнопка Home (Зелена) --- */
+.btn-home {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+    background: #819171; /* Суцільний зелений */
+    backdrop-filter: none;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 100;
+    border: none;
+}
+
+.btn-home:hover {
+    background: #718063; /* Темніше зелений */
+    transform: scale(1.05);
+}
+
+
+/* --- СТИЛІ ДЛЯ НОВИХ ПОЛІВ (Бежеві) --- */
+
+/* Сітка прав доступу */
+.permissions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    background: #F5EFE6; /* Фон як у тіла сторінки */
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #E0D9CD;
+}
+
+.permissions-grid label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #4E443A; /* Темний текст */
+    transition: color 0.2s;
+}
+
+.permissions-grid label:hover {
+    color: #000;
+}
+
+/* Стилізація чекбоксів */
+.permissions-grid label input[type="checkbox"] {
+    width: auto;
+    height: 16px;
+    width: 16px;
+    accent-color: #819171; /* Акцентний зелений */
+    background: #fff;
+    border-radius: 3px;
+}
+.permissions-grid label input[type="checkbox"]:focus {
+    transform: none;
+    box-shadow: 0 0 5px rgba(129, 145, 113, 0.7);
+}
+
+
+/* --- Випадаючий список (Select) --- */
+.form-group select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #DCD5C9;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: #FDFDFB; /* Майже білий фон */
+    font-family: 'Poppins', sans-serif;
+    color: #4E443A;
+    appearance: none;
+    /* Нова SVG-стрілка (зелена) */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23819171' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+}
+
+.form-group select:focus {
+    border-color: #819171;
+    box-shadow: 0 0 10px rgba(129, 145, 113, 0.3);
+    outline: none;
+}
+

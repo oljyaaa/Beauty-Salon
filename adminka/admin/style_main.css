@@ -1,0 +1,235 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #202124;
+    color: #e8eaed;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  /* Світла тема */
+  body.light {
+    background-color: #ffffff;
+    color: #000000;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #202124;
+    border-bottom: 1px solid #3c4043;
+    position: relative;
+    z-index: 100;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  body.light .topbar {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .logo { font-size: 20px; font-weight: bold; margin-right: 20px; color: #fff; margin-left: auto;}
+  body.light .logo { color: #000; }
+
+
+  body.light .search input {
+    background: #e0e0e0;
+    color: #000;
+  }
+
+  .container { display: flex; position: relative;  }
+
+  .sidebar {
+    width: 240px;
+    background-color: #202124;
+    border-right: 1px solid #3c4043;
+    padding: 10px;
+    transition: margin-left 0.3s, background-color 0.3s, color 0.3s;
+  }
+  body.light .sidebar {
+    background-color: #f5f5f5;
+    border-right: 1px solid #ccc;
+    color: #000;
+  }
+  .sidebar.closed { margin-left: -240px; }
+  .sidebar button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #8ab4f8;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .sidebar ul { list-style: none; padding: 0; }
+  .sidebar li { padding: 8px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s; color: #e8eaed;}
+  .sidebar li:hover { background-color: #3c4043; }
+  body.light .sidebar li:hover { background-color: #ddd; }
+
+  .main { flex: 1; padding: 10px; transition: margin-left 0.3s ease; }
+  .email {
+    padding: 12px;
+    border-bottom: 1px solid #3c4043;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .email:hover { background-color: #3c4043; }
+  body.light .email:hover { background-color: #e0e0e0; }
+  .email .from { font-weight: bold; }
+  .email .subject { flex: 1; margin: 0 10px; }
+  .email .date { color: #9aa0a6; }
+/* 
+  .toggle-btn {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    background-color: #8ab4f800;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #00000000;
+    z-index: 200;
+  } */
+
+  .email-view { padding: 20px; background-color: #303134; border-radius: 10px; transition: background-color 0.3s, color 0.3s; }
+  body.light .email-view { background-color: #f0f0f0; color: #000; }
+
+  .back-btn {
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8ab4f8;
+    color: #000;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  /* Кнопка зміни теми */
+  /* #themeBtn {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #8ab4f8;
+    color: #000;
+    font-weight: bold;
+  } */
+#themeBtn {
+  margin-left: auto; /* відсуває кнопку максимально вправо */
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: #8ab4f8;
+  color: #000;
+  font-weight: bold;
+}
+
+.sidebar a {
+  color: #e8eaed;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+body.light .sidebar a {
+  color: #000;
+}
+ /* --- Верхнє меню --- */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+    }
+    .topbar .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .topbar .center {
+      flex: 1;
+      max-width: 400px;
+      margin: 0 15px;
+    }
+    .topbar .center input {
+      width: 100%;
+      padding: 5px 10px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+    }
+    .topbar .right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* --- Контейнер і sidebar --- */
+    .container {
+      display: flex;
+      flex-wrap: nowrap;
+      min-height: calc(100vh - 50px);
+    }
+    .sidebar {
+      min-width: 220px;
+    }
+    .main {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    /* --- Емейли --- */
+    .email {
+      padding: 12px;
+      border-bottom: 1px solid #3c4043;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .email .left-part {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex: 1;
+    }
+    .star {
+      cursor: pointer;
+      font-size: 18px;
+      margin-left: 10px;
+      color: #aaa;
+      transition: color 0.3s;
+    }
+    .star.active {
+      color: gold;
+    }
+
+    /* --- Адаптивність --- */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: absolute;
+        z-index: 200;
+        height: 100%;
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+      .main {
+        flex: 1;
+      }
+      .topbar .center {
+        max-width: 200px;
+      }
+    }

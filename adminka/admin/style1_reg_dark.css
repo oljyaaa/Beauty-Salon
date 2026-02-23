@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+/* Анімований фон (Темний) */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    /* Новий темний градієнт */
+    background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #f0f0f0; /* Світлий колір тексту за замовчуванням */
+    padding: 40px 0;
+}
+
+/* Анімація руху градієнта */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Контейнер */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 450px; /* Трохи ширше */
+    padding: 20px;
+}
+
+/* Карточка (Темна) */
+.register-card {
+    /* Суцільний темний фон, без "скла" */
+    background: #1e1e2d; 
+    padding: 40px;
+    border-radius: 16px;
+    /* Неонова тінь */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 25px rgba(65, 105, 225, 0.3); 
+    width: 100%;
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Ледь помітна рамка */
+}
+
+/* Анімація появи */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Заголовки */
+.register-card h1 {
+    margin-bottom: 10px;
+    font-size: 30px; /* Трохи більше */
+    font-weight: 700;
+    color: #ffffff; /* Білий заголовок */
+}
+
+.register-card p {
+    margin-bottom: 30px; /* Більше відступ */
+    color: #a0a0b0; /* Світло-сірий */
+    font-size: 16px;
+}
+
+/* Поля */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4169E1; /* Яскравий акцентний колір (Royal Blue) */
+    text-transform: uppercase; /* Великі літери */
+    letter-spacing: 0.5px;
+}
+
+/* Поля вводу (Темні) */
+.form-group input {
+    width: 100%;
+    padding: 14px; /* Трохи вище */
+    border: 1px solid #444; /* Темна рамка */
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    background: #2a2a3a; /* Темний фон поля */
+    color: #f0f0f0; /* Світлий текст */
+}
+
+.form-group input::placeholder {
+    color: #777;
+}
+
+.form-group input:focus {
+    border-color: #4169E1; /* Акцентна рамка */
+    /* Неонове світіння */
+    box-shadow: 0 0 15px rgba(65, 105, 225, 0.5); 
+    outline: none;
+    transform: scale(1.01); /* Легке збільшення */
+}
+
+/* Кнопка Register (Неонова) */
+.btn-register {
+    width: 100%;
+    padding: 15px;
+    background: #4169E1; /* Яскравий акцентний колір */
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    letter-spacing: 1px;
+}
+
+.btn-register:hover {
+    background: #5a80ff; /* Світліше при наведенні */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(65, 105, 225, 0.4); /* Тінь при наведенні */
+}
+
+.btn-register:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Кнопка Home – вгору (Темна) */
+.btn-home {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+    background: rgba(65, 105, 225, 0.8); /* Напівпрозорий акцент */
+    backdrop-filter: blur(5px);
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 100;
+    border: 1px solid rgba(65, 105, 225, 0.9);
+}
+
+.btn-home:hover {
+    background: #4169E1; /* Суцільний колір */
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(65, 105, 225, 0.4);
+}
+
+
+/* --- СТИЛІ ДЛЯ НОВИХ ПОЛІВ (Темні) --- */
+
+/* Сітка прав доступу */
+.permissions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    background: #2a2a3a; /* Такий самий, як поля вводу */
+    padding: 15px;
+    border-radius: 10px; /* Такий самий радіус */
+    margin-bottom: 20px;
+    border: 1px solid #444;
+}
+
+.permissions-grid label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #c0c0c0; /* Світло-сірий текст */
+    transition: color 0.2s;
+}
+
+.permissions-grid label:hover {
+    color: #fff; /* Білий при наведенні */
+}
+
+/* Стилізація чекбоксів */
+.permissions-grid label input[type="checkbox"] {
+    width: auto;
+    height: 16px;
+    width: 16px;
+    accent-color: #4169E1; /* Акцентний колір */
+    background: #555; /* Фон для старих браузерів */
+    border-radius: 3px;
+}
+.permissions-grid label input[type="checkbox"]:focus {
+    transform: none;
+    box-shadow: 0 0 5px rgba(65, 105, 225, 0.7); /* Світіння при фокусі */
+}
+
+
+/* Випадаючий список (Select) */
+.form-group select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #444;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: #2a2a3a; /* Темний фон */
+    font-family: 'Poppins', sans-serif;
+    color: #f0f0f0; /* Світлий текст */
+    appearance: none;
+    /* Нова SVG-стрілка (біла) */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23f0f0f0' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+}
+
+.form-group select:focus {
+    border-color: #4169E1;
+    box-shadow: 0 0 15px rgba(65, 105, 225, 0.5);
+    outline: none;
+}
+

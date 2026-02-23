@@ -1,0 +1,522 @@
+/* --- Color variables (Lavender Dream Theme) --- */
+:root {
+    --bg-color: #FBFBFD; /* Lightest Gray/White */
+    --sidebar-bg: #8E7CC3; /* Main Deep Lavender */
+    --accent-color: #FFC0CB; /* Soft Pink (for contrast buttons) */
+    --accent-light: #F0F4FF; /* Very light blue-lavender background for items */
+    --text-color: #33333A; /* Deep Dark Text */
+    --text-light: #6A6A80; /* Secondary Text */
+    --card-bg: #FFFFFF; /* Pure White Card */
+    --border-color: #E8E8F5; /* Light Border */
+    --shadow-color: rgba(142, 124, 195, 0.15); /* Shadow based on sidebar color */
+    --danger-color: #E35360; /* Soft Red/Danger */
+
+    /* Status Colors */
+    --online-color: #58B958; /* Green */
+    --offline-color: #A3A3A3; /* Gray */
+}
+
+/* --- General styles --- */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    width: 260px;
+    background-color: var(--sidebar-bg);
+    color: #fff;
+    min-height: 100vh;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 5px 0px 25px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.sidebar h2 {
+    font-family: 'Prata', serif;
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-align: left;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .menu {
+    flex: 1;
+}
+
+.sidebar button {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    color: #fff;
+    margin-bottom: 8px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    box-shadow: none;
+}
+
+.sidebar button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(3px);
+}
+
+.sidebar button i {
+    margin-right: 15px;
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar button.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+    box-shadow: inset 4px 0 0 var(--accent-color);
+}
+
+.logout-btn {
+    background-color: var(--danger-color);
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #c74853;
+}
+
+/* --- Main content --- */
+.main {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+/* Titles and Headers */
+h2 {
+    color: var(--sidebar-bg);
+    font-family: 'Prata', serif;
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+h2 i {
+    color: var(--accent-color);
+}
+h3 {
+    margin: 15px 0 10px 0;
+    color: var(--sidebar-bg);
+    font-family: 'Prata', serif; 
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: 2px solid var(--accent-light);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+h3 i {
+    margin-right: 8px;
+    color: var(--accent-color);
+}
+
+.welcome-message {
+    text-align: center;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    color: var(--text-light);
+}
+.welcome-message strong {
+    color: var(--sidebar-bg);
+}
+
+
+/* --- Toolbar (Only visible on records/categories) --- */
+.toolbar {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Record cards and items (emails, cards) --- */
+.email, .card {
+    background: var(--card-bg);
+    margin-bottom: 15px;
+    padding: 18px 22px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 15px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+.email:hover, .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(142, 124, 195, 0.1);
+}
+
+.client-info small i {
+    color: var(--accent-color);
+    margin-right: 5px;
+}
+
+.card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 45px;
+    position: relative;
+}
+.card .action-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+/* --- Dashboard Widgets --- */
+.widget-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.stat-card {
+    padding: 25px;
+    border-radius: 16px;
+    background: var(--card-bg);
+    box-shadow: 0 8px 20px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+/* --- Calendar Widget Specific Styles (FIXED FOR GRID) --- */
+.calendar-widget {
+    grid-column: span 2;
+}
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--sidebar-bg);
+}
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+}
+.calendar-days .day {
+    padding: 8px 0;
+    border-radius: 6px;
+    font-size: 14px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    height: 30px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.calendar-days .day-header {
+    font-weight: 700;
+    color: var(--text-light);
+    background: transparent;
+    border: none;
+}
+.calendar-days .empty {
+    background: none;
+    border: none;
+}
+.calendar-days .weekend {
+    background-color: var(--accent-light);
+    color: var(--text-light);
+}
+.calendar-days .current-day {
+    background: var(--sidebar-bg);
+    color: #fff;
+    font-weight: bold;
+    border-color: var(--sidebar-bg);
+}
+
+/* --- Combined Stats and Clock Widget (FIXED) --- */
+.combined-stats-widget {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0;
+    text-align: center;
+    grid-column: span 1; /* Should take 1/3 of the space */
+}
+
+.clock-display-wrapper {
+    background: var(--sidebar-bg);
+    color: #fff;
+    padding: 25px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    margin-bottom: 0;
+    flex-shrink: 0; /* Prevents shrinking */
+}
+.clock-display-wrapper h3 {
+    color: #fff;
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.time-display {
+    font-size: 3.5rem;
+    font-family: 'Prata', serif;
+    color: #fff;
+    margin: 10px 0;
+    line-height: 1;
+}
+.date-display {
+    font-size: 1.1rem;
+    color: var(--accent-color);
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.stats-list-wrapper {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: left; /* Align stats items left */
+}
+
+/* Active User List Widget */
+.active-users-widget {
+    grid-column: span 3; /* Users span full width below the calendar and stats */
+}
+.user-item {
+    display: grid;
+    grid-template-columns: 1fr 100px 1fr 120px; /* Adjusted grid for wide view */
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border-color);
+}
+.user-item:last-child { border-bottom: none; }
+
+
+/* --- Responsive Design --- */
+
+@media (max-width: 1400px) {
+    .active-users-widget { grid-column: span 3; }
+    .user-item { grid-template-columns: 1fr 80px 1fr 100px; }
+}
+
+@media (max-width: 1200px) {
+    .widget-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .calendar-widget { grid-column: span 2; }
+    .combined-stats-widget { grid-column: span 2; } /* Combined stats takes full width below calendar */
+    .active-users-widget { grid-column: span 2; }
+}
+
+@media (max-width: 767px) {
+    body { flex-direction: column; }
+    
+    /* SIDEBAR FIXED TOP */
+    .sidebar { position: fixed; top: 0; left: 0; z-index: 900; }
+    .main { padding-top: 130px; } 
+
+    /* Dashboard Grid on Mobile */
+    .widget-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    /* All widgets stack */
+    .calendar-widget, .combined-stats-widget, .active-users-widget { grid-column: span 1; }
+
+    .time-display { font-size: 3rem; }
+    
+    /* User list on mobile */
+    .user-item {
+        grid-template-columns: 1fr 60px 1fr;
+    }
+    .last-activity {
+        grid-column: 1 / span 3;
+        text-align: left;
+        margin-top: 5px;
+    }
+    .toolbar { flex-direction: column; align-items: stretch; padding: 15px; }
+    .main-add-btn { width: 100%; justify-content: center; padding: 12px; }
+}
+
+.permission-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+.permission-grid div {
+    display: flex;
+    align-items: center;
+}
+.permission-grid input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+}
+.permission-grid label {
+    margin-top: 0;
+    font-weight: normal;
+    user-select: none; /* Дозволяє клікати на текст */
+}
+
+/* --- Мобільна адаптація --- */
+@media (max-width: 768px) {
+    /* 1. Змінюємо розкладку сторінки */
+    body {
+        display: block; /* Забираємо flex, якщо він був на body */
+        padding-top: 60px; /* Місце для верхньої плашки з кнопкою меню */
+    }
+
+    /* 2. Сайдбар (меню) - ховаємо його за межі екрану */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px; /* Сховано зліва */
+        width: 260px;
+        height: 100%;
+        z-index: 1001;
+        transition: 0.3s ease;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    }
+
+    .sidebar.active {
+        left: 0; /* Показуємо при натисканні */
+    }
+
+    /* 3. Основна частина контенту */
+    .main {
+        margin-left: 0 !important; /* Прибираємо відступ зліва */
+        width: 100% !important;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    /* 4. Кнопка відкриття меню (Бургер) */
+    .mobile-menu-toggle {
+        display: flex !important; /* Показуємо тільки на мобільному */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        width: 45px;
+        height: 45px;
+        background: #333; /* Колір кнопки */
+        color: #fff;
+        border-radius: 5px;
+        z-index: 1002;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    /* 5. Адаптація списків записів (карток) */
+    .email, .user-item {
+        flex-direction: column; /* Елементи в стовпчик */
+        align-items: flex-start !important;
+    }
+    
+    .record-actions {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+    }
+
+    /* 6. Панель інструментів (пошук і кнопка додавання) */
+    .toolbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .add-record-container, #searchInput {
+        width: 100%;
+    }
+
+    .main-add-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* 7. Модальні вікна */
+    .modal-box {
+        width: 95%;
+        margin: 20px auto;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    /* 8. Специфічно для Creator Tool (Дашборд) */
+    .widget-grid, .service-list {
+        grid-template-columns: 1fr !important; /* Одна колонка */
+    }
+    
+    /* Оверлей для затемнення фону коли меню відкрите */
+    #mobileOverlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 1000;
+    }
+    #mobileOverlay.active {
+        display: block;
+    }
+}
+
+/* Приховуємо кнопку меню на комп'ютерах */
+.mobile-menu-toggle {
+    display: none;
+}

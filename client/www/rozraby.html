@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crazy форма підтримки</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fredoka+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    :root {
+        --primary-color: #f72585; 
+        --secondary-color: #7209b7; 
+        --tertiary-color: #3a0ca3; 
+        --accent-color: #4cc9f0; 
+        --text-color: #333;
+        --light-text-color: #f0f0f0;
+    }
+
+    body {
+        font-family: 'Fredoka One', cursive, sans-serif; 
+        background: linear-gradient(45deg, #FF00FF, #00FFFF, #FFFF00); 
+        background-size: 400% 400%;
+        animation: gradientBackground 15s ease infinite; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; 
+        margin: 0;
+        overflow: hidden; 
+    }
+
+    @keyframes gradientBackground {
+        0% {background-position: 0% 50%;}
+        50% {background-position: 100% 50%;}
+        100% {background-position: 0% 50%;}
+    }
+
+    .donation-form-container {
+        background: rgba(255, 255, 255, 0.9); 
+        padding: 40px;
+        border-radius: 30px; 
+        box-shadow: 0 0 40px var(--accent-color), 0 0 80px var(--primary-color);
+        width: 100%;
+        max-width: 450px;
+        box-sizing: border-box;
+        text-align: center;
+        position: relative;
+        overflow: hidden; 
+        transform: scale(1); 
+        animation: formPulse 4s ease infinite alternate; 
+    }
+
+    @keyframes formPulse {
+        0% { transform: scale(1); box-shadow: 0 0 30px var(--accent-color), 0 0 60px var(--primary-color); }
+        100% { transform: scale(1.02); box-shadow: 0 0 50px var(--accent-color), 0 0 100px var(--primary-color); }
+    }
+
+    .donation-form-container h2 {
+        color: var(--tertiary-color);
+        margin-bottom: 30px;
+        font-weight: bold;
+        font-size: 2.2em;
+        text-shadow: 2px 2px var(--accent-color); 
+        position: relative;
+        z-index: 1; 
+    }
+
+    .amount-selection {
+        margin-bottom: 25px;
+    }
+
+    .amount-buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .amount-btn {
+        background: var(--secondary-color);
+        color: var(--light-text-color);
+        border: 3px solid var(--primary-color); 
+        border-radius: 15px;
+        padding: 12px 0;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1.1em;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(.17,.67,.83,.67); 
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .amount-btn:hover {
+        transform: translateY(-5px) scale(1.05); 
+        box-shadow: 0 5px 20px var(--primary-color), 0 0 30px var(--accent-color); 
+    }
+
+    .amount-btn.active {
+        background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+        color: white;
+        border-color: var(--tertiary-color);
+        transform: scale(1.1); 
+        box-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--accent-color); 
+        animation: pulseEffect 0.5s ease; 
+    }
+
+    @keyframes pulseEffect {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.15); }
+        100% { transform: scale(1.1); }
+    }
+
+    .custom-amount-input {
+        width: calc(100% - 24px); 
+        padding: 15px;
+        border: 2px solid var(--accent-color);
+        border-radius: 15px;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 1.2em;
+        font-weight: bold;
+        background: #e9ecef;
+        color: var(--text-color);
+        transition: all 0.3s ease;
+        box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .custom-amount-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 15px var(--primary-color); 
+        background: white;
+    }
+
+    .form-input {
+        width: calc(100% - 24px); 
+        padding: 15px;
+        border: 2px solid var(--accent-color);
+        border-radius: 15px;
+        margin-bottom: 18px;
+        box-sizing: border-box;
+        font-size: 1em;
+        background: #e9ecef;
+        color: var(--text-color);
+        transition: all 0.3s ease;
+        box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .form-input::placeholder {
+        color: #888;
+    }
+    .form-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 15px var(--primary-color);
+        background: white;
+    }
+    
+    textarea.form-input {
+        resize: vertical;
+        min-height: 80px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 20px;
+        border: none;
+        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); 
+        color: white;
+        border-radius: 15px;
+        font-size: 1.8em; 
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        text-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+    }
+    .submit-btn:hover {
+        background: linear-gradient(45deg, var(--accent-color), var(--primary-color)); 
+        transform: translateY(-3px) scale(1.02); 
+        box-shadow: 0 8px 25px var(--primary-color), 0 0 35px var(--accent-color); 
+    }
+
+    .icon {
+        margin-right: 8px;
+        color: white;
+    }
+</style>
+</head>
+<body>
+
+<div class="donation-form-container">
+    <h2>Підтримати розробників <i class="fas fa-rocket"></i></h2>
+    
+    <div class="amount-selection">
+        <div class="amount-buttons">
+            <button class="amount-btn active" data-value="5"><i class="fas fa-mug-hot"></i> $5</button>
+            <button class="amount-btn" data-value="10"><i class="fas fa-pizza-slice"></i> $10</button>
+            <button class="amount-btn" data-value="20"><i class="fas fa-laptop-code"></i> $20</button>
+            <button class="amount-btn" data-value="50"><i class="fas fa-star"></i> $50</button>
+        </div>
+        <input type="number" id="customAmount" class="custom-amount-input" placeholder="Інша сума, $" min="1">
+    </div>
+
+    <input type="text" class="form-input" placeholder="Ваше ім'я (необов'язково)">
+    <textarea class="form-input" rows="3" placeholder="Залиште тепле слово..."></textarea>
+    
+    <button id="submitBtn" class="submit-btn"><i class="fas fa-heart"></i> Підтримати $5</button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const amountButtons = document.querySelectorAll('.amount-btn');
+    const customAmountInput = document.getElementById('customAmount');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    let currentAmount = 5;
+    updateSubmitButton(currentAmount);
+
+    function updateSubmitButton(amount) {
+        const validAmount = Math.max(1, parseFloat(amount) || 0);
+        currentAmount = validAmount;
+        submitBtn.innerHTML = `<i class="fas fa-heart"></i> Підтримати $${validAmount}`;
+    }
+
+    amountButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            amountButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            customAmountInput.value = ''; 
+            const value = this.getAttribute('data-value');
+            updateSubmitButton(value);
+        });
+    });
+
+    customAmountInput.addEventListener('input', function () {
+        const enteredValue = parseFloat(this.value);
+        if (!this.value.trim()) {
+            amountButtons.forEach(btn => btn.classList.remove('active'));
+            amountButtons[0].classList.add('active');
+            const defaultValue = amountButtons[0].getAttribute('data-value');
+            updateSubmitButton(defaultValue);
+            return;
+        }
+
+        if (enteredValue >= 1) {
+            amountButtons.forEach(btn => btn.classList.remove('active')); 
+            updateSubmitButton(enteredValue);
+        } else {
+            submitBtn.innerHTML = `<i class="fas fa-heart"></i> Підтримати $${enteredValue || 0}`;
+        }
+    });
+
+    submitBtn.addEventListener('click', function() {
+        if (currentAmount < 1) {
+            alert("Сума повинна бути не менше $1.");
+            return;
+        }
+
+        const amountInKopecks = Math.round(currentAmount * 45); //курс долара
+        const monoUrl = `https://send.monobank.ua/jar/2fgutijRWb?amount=${amountInKopecks}`;
+        window.open(monoUrl, '_blank'); // open in new window
+    });
+});
+</script>
+
+</body>
+</html>
