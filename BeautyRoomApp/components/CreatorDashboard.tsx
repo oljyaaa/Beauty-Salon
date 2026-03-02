@@ -1,11 +1,12 @@
-// components/CreatorDashboard.tsx
 import React, { useState, useEffect } from 'react';
 import { 
-  StyleSheet, View, Text, ScrollView, TouchableOpacity, Modal, TextInput, Alert, FlatList, StatusBar 
+  StyleSheet, View, Text, ScrollView, TouchableOpacity, Modal, TextInput, Alert, FlatList, StatusBar, ActivityIndicator 
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Print from 'expo-print'; // <--- ДЛЯ PDF
+import * as Sharing from 'expo-sharing'; // <--- ДЛЯ ЗБЕРЕЖЕННЯ
 
 import { API_URL, SERVICE_CATEGORIES } from '../constants/AppConfig';
 import RecordCard from './RecordCard';
@@ -29,7 +30,7 @@ export default function CreatorDashboard({ user }: { user: any }) {
   const [activeSection, setActiveSection] = useState('dashboard');
   const [sidebarVisible, setSidebarVisible] = useState(false);
   
-  // НОВИЙ СТЕЙТ ДЛЯ ВІКНА СПОВІЩЕНЬ
+  // СТЕЙТ ДЛЯ ВІКНА СПОВІЩЕНЬ
   const [notificationsVisible, setNotificationsVisible] = useState(false);
   
   const [records, setRecords] = useState<any[]>([]); 
@@ -89,6 +90,84 @@ export default function CreatorDashboard({ user }: { user: any }) {
   };
 
   useEffect(() => { fetchData(); }, []);
+
+  // === ГЕНЕРАЦІЯ ЗВІТУ (PDF) ===
+  const handleGenerateReport = async () => {
+    try {
+      // 1. Фільтруємо тільки активні записи
+      const activeRecords = records.filter(r => r.category !== 'Архів' && r.category !== 'Перетелефонувати');
+
+      if (activeRecords.length === 0) {
+        Alert.alert("Увага", "Немає активних записів для звіту.");
+        return;
+      }
+
+      // 2. Створюємо рядки таблиці HTML
+      const tableRows = activeRecords.map((item, index) => `
+        <tr>
+          <td style="text-align: center;">${index + 1}</td>
+          <td>${item.date}<br><small>${item.time}</small></td>
+          <td><b>${item.clientName}</b><br><span style="color: #666;">${item.phone}</span></td>
+          <td>${item.service}</td>
+          <td>${item.master}</td>
+        </tr>
+      `).join('');
+
+      // 3. Формуємо повний HTML документ
+      const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <title>Звіт активних записів</title>
+          <style>
+            body { font-family: 'Helvetica', sans-serif; padding: 20px; color: #333; }
+            h1 { color: #D48392; text-align: center; margin-bottom: 10px; }
+            p { text-align: center; color: #777; margin-bottom: 30px; }
+            table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+            th { background-color: #F0A3B1; color: white; padding: 10px; text-align: left; }
+            td { border-bottom: 1px solid #eee; padding: 10px; font-size: 14px; }
+            tr:nth-child(even) { background-color: #FEF4F6; }
+            .footer { margin-top: 40px; text-align: right; font-size: 12px; color: #aaa; }
+          </style>
+        </head>
+        <body>
+          <h1>Beauty Room Report</h1>
+          <p>Звіт про активні записи на ${new Date().toLocaleDateString('uk-UA')}</p>
+          
+          <table>
+            <thead>
+              <tr>
+                <th width="5%">#</th>
+                <th width="15%">Дата/Час</th>
+                <th width="30%">Клієнт</th>
+                <th width="30%">Послуга</th>
+                <th width="20%">Майстер</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${tableRows}
+            </tbody>
+          </table>
+
+          <div class="footer">
+            Згенеровано автоматично системою Beauty Room App<br>
+            ${new Date().toLocaleString('uk-UA')}
+          </div>
+        </body>
+        </html>
+      `;
+
+      // 4. Генеруємо PDF
+      const { uri } = await Print.printToFileAsync({ html: htmlContent });
+      
+      // 5. Відкриваємо діалог "Поділитися/Зберегти"
+      await Sharing.shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
+
+    } catch (error) {
+      Alert.alert("Помилка", "Не вдалося створити звіт.");
+    }
+  };
 
   const handleSaveRecord = async (data: any) => {
     setFormVisible(false);
@@ -203,16 +282,15 @@ export default function CreatorDashboard({ user }: { user: any }) {
     return records.filter(r => r.category === activeSection);
   };
 
-  // ФУНКЦІЯ ДЛЯ ФОРМУВАННЯ СПИСКУ СПОВІЩЕНЬ
   const getRecentNotifications = () => {
     return [...records]
-      .filter(r => r.category !== 'Архів') // Архівні нам у сповіщеннях не потрібні
+      .filter(r => r.category !== 'Архів')
       .sort((a, b) => {
         const strA = `${a.date} ${a.time}`;
         const strB = `${b.date} ${b.time}`;
-        return strB.localeCompare(strA); // Сортуємо від найновіших
+        return strB.localeCompare(strA);
       })
-      .slice(0, 15); // Беремо останні 15
+      .slice(0, 15);
   };
 
   const menuItems = ['dashboard', 'all', 'Масаж', 'Elos-епіляція', 'Доглядові процедури', 'archive', 'call', 'pricing', 'history'];
@@ -265,17 +343,26 @@ export default function CreatorDashboard({ user }: { user: any }) {
                         </View>
                     </View>
                 </View>
-                 <View style={styles.widgetCard}>
+
+                {/* === ВІДЖЕТ СТАТИСТИКИ (ТЕПЕР КЛІКАБЕЛЬНИЙ) === */}
+                <TouchableOpacity style={styles.widgetCard} onPress={handleGenerateReport} activeOpacity={0.7}>
                     <View style={{flexDirection:'row', alignItems:'center', gap: 18}}>
                         <View style={{width: 56, height: 56, borderRadius: 20, backgroundColor: '#FFF0F3', justifyContent:'center', alignItems:'center'}}>
-                            <Ionicons name="stats-chart" size={28} color={BeautyTheme.danger} />
+                            <Ionicons name="document-text" size={28} color={BeautyTheme.danger} />
                         </View>
-                        <View>
-                            <Text style={styles.widgetTitle}>Статистика</Text>
-                            <Text style={{fontSize: 15, color: BeautyTheme.textMain}}>Записів: <Text style={{fontWeight:'700', fontSize: 18}}>{records.filter(r => r.category !== 'Архів').length}</Text></Text>
+                        <View style={{flex: 1}}>
+                            <View style={{flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+                                <Text style={styles.widgetTitle}>Статистика та Звіт</Text>
+                                <Ionicons name="download-outline" size={18} color={BeautyTheme.textSecondary} />
+                            </View>
+                            <Text style={{fontSize: 15, color: BeautyTheme.textMain}}>
+                                Активних записів: <Text style={{fontWeight:'700', fontSize: 18}}>{records.filter(r => r.category !== 'Архів').length}</Text>
+                            </Text>
+                            <Text style={{fontSize: 11, color: BeautyTheme.textSecondary, marginTop: 2}}>Натисніть для PDF-звіту</Text>
                         </View>
                     </View>
-                </View>
+                </TouchableOpacity>
+
             </ScrollView>
         );
     } 
@@ -358,7 +445,6 @@ export default function CreatorDashboard({ user }: { user: any }) {
                 <Text style={styles.dateText}>{new Date().toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', weekday: 'long' })}</Text>
             </View>
             
-            {/* ТЕПЕР ЦЕ КНОПКА, ЯКА ВІДКРИВАЄ МЕНЮ СПОВІЩЕНЬ */}
             <TouchableOpacity style={styles.notificationBadge} onPress={() => setNotificationsVisible(true)}>
                 <Ionicons name="notifications" size={22} color={BeautyTheme.primaryDark} />
                 <View style={styles.redDot} />
@@ -483,7 +569,6 @@ const styles = StyleSheet.create({
   categoryValue: { color: '#FFF', fontSize: 19, fontWeight: '700', marginTop: 4, letterSpacing: 0.5 },
   categoryIconBox: { width: 44, height: 44, borderRadius: 16, backgroundColor: 'rgba(255,255,255,0.25)', justifyContent: 'center', alignItems: 'center' },
   
-  /* СТИЛІ ДЛЯ НОВОГО ЦЕНТРУ СПОВІЩЕНЬ */
   notifModalContainer: { flex: 1, backgroundColor: BeautyTheme.bg, padding: 25 },
   notifHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30, marginTop: 10 },
   notifMainTitle: { fontSize: 26, fontWeight: '800', color: BeautyTheme.textMain, letterSpacing: -0.5 },
