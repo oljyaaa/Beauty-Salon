@@ -502,11 +502,11 @@ export default function CreatorDashboard({ user }: { user: any }) {
 
   // Build preFillClient that includes the date when adding from calendar
   const getPreFillForForm = () => {
-    if (preFillDate) {
+    if (preFillDate && !editingItem) {
       const y = preFillDate.getFullYear();
       const m = (preFillDate.getMonth() + 1).toString().padStart(2, '0');
       const d = preFillDate.getDate().toString().padStart(2, '0');
-      return { _date: `${y}-${m}-${d}` };
+      return { name: '', phone: '', _prefillDate: `${y}-${m}-${d}` };
     }
     return preFillClient;
   };
@@ -843,18 +843,12 @@ export default function CreatorDashboard({ user }: { user: any }) {
       {/* ── RECORD FORM MODAL ── */}
       <RecordFormModal
         visible={formVisible}
-        onClose={() => { setFormVisible(false); setPreFillDate(null); }}
+        onClose={() => { setFormVisible(false); setPreFillDate(null); setPreFillClient(null); }}
         onSave={handleSaveRecord}
-        initialData={editingItem
-          ? (preFillDate
-            ? { ...editingItem, date: (() => { const y = preFillDate.getFullYear(); const m = (preFillDate.getMonth() + 1).toString().padStart(2, '0'); const d = preFillDate.getDate().toString().padStart(2, '0'); return `${y}-${m}-${d}`; })() }
-            : editingItem)
-          : undefined}
+        initialData={editingItem ?? undefined}
         servicesData={pricingData}
         allowedCategories={SERVICE_CATEGORIES}
-        preFillClient={preFillDate && !editingItem
-          ? { name: '', phone: '', _prefillDate: (() => { const y = preFillDate.getFullYear(); const m = (preFillDate.getMonth() + 1).toString().padStart(2, '0'); const d = preFillDate.getDate().toString().padStart(2, '0'); return `${y}-${m}-${d}`; })() } as any
-          : preFillClient}
+        preFillClient={getPreFillForForm()}
         defaultCategory={activeSection !== 'dashboard' && activeSection !== 'all' && SERVICE_CATEGORIES.includes(activeSection) ? activeSection : ''}
       />
 
