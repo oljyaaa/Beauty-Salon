@@ -208,6 +208,11 @@ export default function RecordFormModal({
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
 
+  // Track whether we've already initialized for the current open session.
+  // This prevents the form from resetting every time the parent re-renders
+  // (which happens on every keystroke because parent state changes).
+  const initializedForSession = useRef(false);
+
   // Header entrance
   const hSlide   = useRef(new Animated.Value(-50)).current;
   const hOpacity = useRef(new Animated.Value(0)).current;
@@ -219,11 +224,17 @@ export default function RecordFormModal({
         Animated.spring(hSlide,   { toValue: 0, tension: 75, friction: 10, useNativeDriver: true }),
         Animated.timing(hOpacity, { toValue: 1, duration: 280, useNativeDriver: true }),
       ]).start();
+    } else {
+      // Reset the guard when modal closes so next open re-initializes
+      initializedForSession.current = false;
     }
   }, [visible]);
 
   useEffect(() => {
-    if (!visible) return;
+    // Only run once per open session (when visible becomes true)
+    if (!visible || initializedForSession.current) return;
+    initializedForSession.current = true;
+
     if (initialData) {
       const [hours, minutes] = initialData.time.split(':');
       const timeDate = new Date();
@@ -254,7 +265,11 @@ export default function RecordFormModal({
         note: preFillClient?.note || '', master: ''
       });
     }
-  }, [visible, initialData, defaultCategory, preFillClient]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible]);
+  // ↑ IMPORTANT: deps array contains ONLY [visible].
+  // preFillClient / initialData / defaultCategory are intentionally excluded —
+  // we snapshot them once on open via the initializedForSession guard.
 
   const normalize = (str: string) => (str || '').toLowerCase().trim();
   const matchingCats = servicesData.filter(cat => {

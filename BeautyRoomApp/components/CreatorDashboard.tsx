@@ -61,24 +61,43 @@ function DateBottomSheet({
   onRestore: (id: string, realId: string) => void;
   onDelete: (id: string, realId: string, type: string) => void;
 }) {
+  // Always start OFF screen — never at 0 so it doesn't flash on first render
   const slideAnim = useRef(new Animated.Value(SCREEN_HEIGHT)).current;
+  const backdropAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     if (visible) {
-      Animated.spring(slideAnim, {
-        toValue: 0, tension: 65, friction: 11, useNativeDriver: true,
-      }).start();
+      // Reset to off-screen before animating in (fixes "already at 0" bug on reopen)
+      slideAnim.setValue(SCREEN_HEIGHT);
+      backdropAnim.setValue(0);
+      Animated.parallel([
+        Animated.spring(slideAnim, {
+          toValue: 0, tension: 68, friction: 11, useNativeDriver: true,
+        }),
+        Animated.timing(backdropAnim, {
+          toValue: 1, duration: 250, useNativeDriver: true,
+        }),
+      ]).start();
     } else {
-      Animated.timing(slideAnim, {
-        toValue: SCREEN_HEIGHT, duration: 260,
-        useNativeDriver: true,
-      }).start();
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: SCREEN_HEIGHT, duration: 260, useNativeDriver: true,
+        }),
+        Animated.timing(backdropAnim, {
+          toValue: 0, duration: 220, useNativeDriver: true,
+        }),
+      ]).start();
     }
   }, [visible]);
 
-  if (!date) return null;
+  // Keep last known date so content doesn't vanish during close animation
+  const lastDate = useRef(date);
+  if (date) lastDate.current = date;
+  const displayDate = lastDate.current;
 
-  const dateLabel = date.toLocaleDateString('uk-UA', {
+  if (!displayDate) return null;
+
+  const dateLabel = displayDate.toLocaleDateString('uk-UA', {
     weekday: 'long', day: 'numeric', month: 'long',
   });
 
@@ -93,13 +112,15 @@ function DateBottomSheet({
 
   return (
     <Modal visible={visible} transparent animationType="none" onRequestClose={onClose}>
-      {/* Backdrop */}
-      <TouchableOpacity
-        style={styles.backdrop}
-        activeOpacity={1}
-        onPress={onClose}
-      />
+      {/* Animated backdrop */}
+      <Animated.View
+        style={[styles.backdrop, { opacity: backdropAnim }]}
+        pointerEvents={visible ? 'auto' : 'none'}
+      >
+        <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={onClose} />
+      </Animated.View>
 
+      {/* Sheet slides up from bottom */}
       <Animated.View
         style={[styles.sheet, { transform: [{ translateY: slideAnim }] }]}
       >
@@ -118,7 +139,7 @@ function DateBottomSheet({
           </View>
           <TouchableOpacity
             style={styles.sheetAddBtn}
-            onPress={() => onAdd(date)}
+            onPress={() => onAdd(displayDate)}
           >
             <Ionicons name="add" size={22} color="#fff" />
           </TouchableOpacity>
@@ -138,7 +159,7 @@ function DateBottomSheet({
               <Text style={styles.emptySheetText}>На цей день записів немає</Text>
               <TouchableOpacity
                 style={styles.emptyAddBtn}
-                onPress={() => onAdd(date)}
+                onPress={() => onAdd(displayDate)}
               >
                 <Ionicons name="add-circle-outline" size={18} color={BeautyTheme.primaryDark} />
                 <Text style={styles.emptyAddText}>Додати запис</Text>
@@ -502,11 +523,11 @@ export default function CreatorDashboard({ user }: { user: any }) {
 
   // Build preFillClient that includes the date when adding from calendar
   const getPreFillForForm = () => {
-    if (preFillDate && !editingItem) {
+    if (preFillDate) {
       const y = preFillDate.getFullYear();
       const m = (preFillDate.getMonth() + 1).toString().padStart(2, '0');
       const d = preFillDate.getDate().toString().padStart(2, '0');
-      return { name: '', phone: '', _prefillDate: `${y}-${m}-${d}` };
+      return { _date: `${y}-${m}-${d}` };
     }
     return preFillClient;
   };
@@ -843,12 +864,18 @@ export default function CreatorDashboard({ user }: { user: any }) {
       {/* ── RECORD FORM MODAL ── */}
       <RecordFormModal
         visible={formVisible}
-        onClose={() => { setFormVisible(false); setPreFillDate(null); setPreFillClient(null); }}
+        onClose={() => { setFormVisible(false); setPreFillDate(null); }}
         onSave={handleSaveRecord}
-        initialData={editingItem ?? undefined}
+        initialData={editingItem
+          ? (preFillDate
+            ? { ...editingItem, date: (() => { const y = preFillDate.getFullYear(); const m = (preFillDate.getMonth() + 1).toString().padStart(2, '0'); const d = preFillDate.getDate().toString().padStart(2, '0'); return `${y}-${m}-${d}`; })() }
+            : editingItem)
+          : undefined}
         servicesData={pricingData}
         allowedCategories={SERVICE_CATEGORIES}
-        preFillClient={getPreFillForForm()}
+        preFillClient={preFillDate && !editingItem
+          ? { name: '', phone: '', _prefillDate: (() => { const y = preFillDate.getFullYear(); const m = (preFillDate.getMonth() + 1).toString().padStart(2, '0'); const d = preFillDate.getDate().toString().padStart(2, '0'); return `${y}-${m}-${d}`; })() } as any
+          : preFillClient}
         defaultCategory={activeSection !== 'dashboard' && activeSection !== 'all' && SERVICE_CATEGORIES.includes(activeSection) ? activeSection : ''}
       />
 
