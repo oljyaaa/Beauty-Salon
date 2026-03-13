@@ -56,3 +56,8 @@ npx expo install expo-print expo-sharing
 ```
 npx expo install expo-router react-native-safe-area-context react-native-screens expo-linking expo-constants expo-status-bar @react-native-async-storage/async-storage expo-notifications expo-device @expo/vector-icons
 ```
+
+
+```
+npx expo install expo-image-picker
+```
